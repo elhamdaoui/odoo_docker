@@ -62,21 +62,21 @@ ARG ODOO_SHA=8ab8486e502eb7b092ff2fc87037bd0e7a740f52
 #    && apt-get update \
 #    && apt-get -y install --no-install-recommends ./odoo.deb \
 #    && rm -rf /var/lib/apt/lists/* odoo.deb
-
-RUN apt-get install git
-RUN apt-get install git
+RUN adduser odoo15
+RUN apt-get update -y
+RUN apt install git -y
 RUN cd /opt \
     && git clone -b ${ODOO_VERSION} https://github.com/odoo/odoo.git --depth 1 \
-    && chown -R odoo /opt/odoo
-    
+    && chown -R odoo15 /opt/odoo
+
 # Copy entrypoint script and Odoo configuration file
 COPY ./entrypoint.sh /
 COPY ./odoo.conf /etc/odoo/
 
 # Set permissions and Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
-RUN chown odoo /etc/odoo/odoo.conf \
+RUN chown odoo15 /etc/odoo/odoo.conf \
     && mkdir -p /mnt/extra-addons \
-    && chown -R odoo /mnt/extra-addons
+    && chown -R odoo15 /mnt/extra-addons
 VOLUME ["/var/lib/odoo", "/mnt/extra-addons"]
 
 # Expose Odoo services
@@ -88,7 +88,7 @@ ENV ODOO_RC /etc/odoo/odoo.conf
 COPY wait-for-psql.py /usr/local/bin/wait-for-psql.py
 
 # Set default user when running the container
-USER odoo
+USER odoo15
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["odoo"]
