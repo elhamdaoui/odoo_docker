@@ -1,0 +1,37 @@
+version: '3.1'
+
+services:
+  odoo:
+    build: 
+      context: ./config
+      dockerfile: Dockerfile
+      args:
+        TARGETARCH: arm64
+    depends_on:
+      - db
+    ports:
+      - "8012:8069"
+      - "8071:8071"
+      - "8072:8072"
+    volumes:
+      - odoo-web-data:/var/lib/odoo
+      - ./addons:/mnt/extra-addons
+      - odoo-opt-data:/opt/odoo
+    environment:
+      - ODOO_RC=/etc/odoo/odoo.conf
+    command: -u base
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: odoo
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data
+
+volumes:
+  odoo-web-data:
+  odoo-db-data:
+  odoo-opt-data:
+
