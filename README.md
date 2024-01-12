@@ -1,6 +1,6 @@
 About this Repo
 ======
-What i DO : This is a docker based on git repository instead of nightly build, and this images is worked in arm64 architecture (Mac os for example)
+What i added to official odoo docker : This is a docker based on git repository instead of nightly build, and this images is worked in arm64 architecture (Mac os for example)
 
 
 This is the Git repo of the official Docker image for [Odoo](https://registry.hub.docker.com/_/odoo/). See the Hub page for the full readme on how to use the Docker image and for information regarding contributing and issues.
