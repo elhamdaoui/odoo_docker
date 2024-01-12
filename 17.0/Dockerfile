@@ -9,6 +9,7 @@ ENV LANG en_US.UTF-8
 # Retrieve the target architecture to install the correct wkhtmltopdf package
 ARG TARGETARCH
 
+TARGETARCH="arm64"
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
 
 RUN apt-get update && \
