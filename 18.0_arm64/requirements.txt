@@ -1,0 +1,2 @@
+astor
+python-stdnum>=1.18
